@@ -1,3 +1,6 @@
+//making sure soft select is on to achieve model look
+softSelect -softSelectEnabled 1;
+
 //create base sphere
 polySphere -radius 3 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -name Sphere1 -constructionHistory 1;
 move -relative 0 2.58 0 ;
@@ -68,32 +71,46 @@ scale -relative 0.152 0.152 0.085;
 
 //create stick arms
 //right
-polyCube -width 1 -height 1 -depth 1 -subdivisionsX 1 -subdivisionsY 4 -subdivisionsZ 1 -axis 0 1 0 -createUVs 4 -constructionHistory 1;
-move -relative -objectSpace -worldSpaceDistance 3.222 8.428 0;
-rotate -relative -objectSpace -forceOrderXYZ 0 0 -60 ;
-scale -relative 0.274 3.656 0.274;
-select -add pCube1.e[2] pCube1.e[7] pCube1.e[31] pCube1.e[34] ; //.e is edge
-move -relative 0 -0.284332 0 ;
-select -relative pCube1.f[4] ; //.f is face
-move -relative 0 0.766865 0 ;
+polyCube -w 1 -h 1 -d 1 -sx 4 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -name Cube1 -ch 1; objectMoveCommand;
+move -relative -objectSpace -worldSpaceDistance 3.788 8.191 0;
+scale -relative 4.585 0.313 0.313;
+rotate -relative -objectSpace -forceOrderXYZ 0 0 15;
+//moving edges and faces to form branch
+select -r Cube1.e[18] ;
+select -add Cube1.e[18] Cube1.e[23] Cube1.e[28] Cube1.e[33] ;
+move -r 0 -0.573526 0 ;
+select -d Cube1.e[18] Cube1.e[23] Cube1.e[28] Cube1.e[33] ;
+select -r Cube1.f[16] ;
+move -r 0 0.980829 0 ;
+//selecting for beveling
+select -add Cube1.e[0:3] ;
+select -add Cube1.e[4:7] ;
+select -add Cube1.e[12:15] ;
+select -add Cube1.e[8:11] ;
+polyBevel3 -fraction 0.5 -offsetAsFraction 1 -autoFit 1 -depth 1 -mitering 0 -miterAlong 0 -chamfer 1 -segments 1 -worldSpace 1 -smoothingAngle 30 -subdivideNgons 1 -mergeVertices 1 -mergeVertexTolerance 0.0001 -miteringAngle 180 -angleTolerance 180 -ch 1 Cube1.e[0:15];
+// Result: polyBevel1
 //left
-select -r pCube1 ;
-duplicate -smartTransform;
-move -absolute -3.328 6.137 0;
-rotate -relative -objectSpace -forceOrderXYZ 165 0 0;
+select -r Cube1 ;
+duplicate -rr;
+// Result: Cube2 //
+move -absolute -3.833 6.097 0;
+rotate -relative -objectSpace -forceOrderXYZ 180 -180 15;
 
 //create buttons
 polySphere -radius 1 -subdivisionsX 10 -subdivisionsY 10 -axis 0 1 0 -createUVs 2 -name Sphere6 -constructionHistory 1;
 move -relative 0 8.04 1.599;
 rotate -relative -objectSpace -forceOrderXYZ -30 0 0 ;
 scale -relative 0.18 0.18 0.084;
+polySoftEdge -angle 180 -constructionHistory 1 Sphere6;
 //second one
 select -r Sphere6;
 duplicate -returnRootsOnly;
 move -absolute 0 7.1 1.978;
 rotate -relative -objectSpace -forceOrderXYZ 30 0 0;
+polySoftEdge -angle 180 -constructionHistory 1 Sphere7;
 //third button
 select -r Sphere7;
 duplicate -smartTransform;
 move -absolute 0 6.096 2.017;
 rotate -relative -objectSpace -forceOrderXYZ 15 0 0 ;
+polySoftEdge -angle 180 -constructionHistory 1 Sphere8;
