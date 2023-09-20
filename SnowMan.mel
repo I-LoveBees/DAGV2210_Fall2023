@@ -1,0 +1,99 @@
+//create base sphere
+polySphere -radius 3 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -name Sphere1 -constructionHistory 1;
+move -relative 0 2.58 0 ;
+//extend and flatten base of sphere
+dR_paintPress;
+selectPref -paintSelectRefine 1;
+select -add Sphere1.f[360:379] ;
+dR_paintRelease;
+selectPref -paintSelectRefine 0;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+scale -relative -pivot -2.38419e-07cm 0.43934cm -3.57628e-07cm 1 1e-05 1 ;
+scale -relative -pivot -2.38419e-07cm 0.43934cm -3.57628e-07cm 1.16451 1.16451 1.16451 ;
+
+//create middle sphere
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -name Sphere2 -ch 1;
+polySphere -e -radius 2; //edits the sphere to have a radius of 2
+//print(`polySphere -q -subdivisionsY`); query's or asks maya for the information you specify
+move -relative -objectSpace -worldSpaceDistance 0 6.9 0;
+//extend and flatten base of sphere
+dR_paintPress;
+selectPref -paintSelectRefine 1;
+select -add Sphere2.f[360:379] ;
+dR_paintRelease;
+selectPref -paintSelectRefine 0;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+scale -r -p -1.78814e-07cm 5.200246cm -2.98023e-07cm 1 0.584129 1 ;
+scale -r -p -1.78814e-07cm 5.200246cm -2.98023e-07cm 1.09912 1.09912 1.09912 ;
+
+//create head sphere
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -name Sphere3 -ch 1;
+move -relative -objectSpace -worldSpaceDistance 0 9.5 0;
+//flatten and extend base of sphere
+dR_paintPress;
+selectPref -paintSelectRefine 1;
+select -add Sphere3.f[360:379] ;
+dR_paintRelease;
+selectPref -paintSelectRefine 0;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+select `ls -sl`;PolySelectTraverse 1;select `ls -sl`;
+scale -r -p -8.9407e-08cm 8.689216cm -1.49012e-07cm 1.162151 1.162151 1.162151 ;
+scale -r -p -8.9407e-08cm 8.689216cm -1.49012e-07cm 1 0.689034 1 ;
+
+//create cone nose
+polyCone -radius 1 -height 2 -subdivisionsX 20 -subdivisionsY 1 -subdivisionsZ 0 -axis 0 1 0 -roundCap 0 -createUVs 3 -constructionHistory 1;
+move -relative -objectSpace -worldSpaceDistance 0 9.5 1.1;
+rotate -relative -objectSpace -forceOrderXYZ 90 0 0 ;
+scale -relative 0.278164 0.278164 0.278164 ;
+
+//create eyes
+//right
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -name Sphere4 -ch 1;
+move -relative -objectSpace -worldSpaceDistance 0.3 9.8 0.883;
+rotate -relative -objectSpace -forceOrderXYZ 0 15 0 ;
+scale -relative 0.152 0.152 0.085;
+//left
+polySphere -r 1 -sx 20 -sy 20 -ax 0 1 0 -cuv 2 -name Sphere5 -ch 1;
+move -relative -objectSpace -worldSpaceDistance -0.3 9.8 0.883;
+rotate -relative -objectSpace -forceOrderXYZ 0 -15 0 ;
+scale -relative 0.152 0.152 0.085;
+
+//create stick arms
+//right
+polyCube -width 1 -height 1 -depth 1 -subdivisionsX 1 -subdivisionsY 4 -subdivisionsZ 1 -axis 0 1 0 -createUVs 4 -constructionHistory 1;
+move -relative -objectSpace -worldSpaceDistance 3.222 8.428 0;
+rotate -relative -objectSpace -forceOrderXYZ 0 0 -60 ;
+scale -relative 0.274 3.656 0.274;
+select -add pCube1.e[2] pCube1.e[7] pCube1.e[31] pCube1.e[34] ; //.e is edge
+move -relative 0 -0.284332 0 ;
+select -relative pCube1.f[4] ; //.f is face
+move -relative 0 0.766865 0 ;
+//left
+select -r pCube1 ;
+duplicate -smartTransform;
+move -absolute -3.328 6.137 0;
+rotate -relative -objectSpace -forceOrderXYZ 165 0 0;
+
+//create buttons
+polySphere -radius 1 -subdivisionsX 10 -subdivisionsY 10 -axis 0 1 0 -createUVs 2 -name Sphere6 -constructionHistory 1;
+move -relative 0 8.04 1.599;
+rotate -relative -objectSpace -forceOrderXYZ -30 0 0 ;
+scale -relative 0.18 0.18 0.084;
+//second one
+select -r Sphere6;
+duplicate -returnRootsOnly;
+move -absolute 0 7.1 1.978;
+rotate -relative -objectSpace -forceOrderXYZ 30 0 0;
+//third button
+select -r Sphere7;
+duplicate -smartTransform;
+move -absolute 0 6.096 2.017;
+rotate -relative -objectSpace -forceOrderXYZ 15 0 0 ;
