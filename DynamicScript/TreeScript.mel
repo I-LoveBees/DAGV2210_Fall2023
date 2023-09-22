@@ -1,0 +1,16 @@
+//gonna try and make a tree with random size branches?? idfk man
+//tree trunk
+polyCylinder -radius 1 -height 10 -subdivisionsX 20 -subdivisionsY 1 -subdivisionsZ 1 -axis 0 1 0 -roundCap 1 -cuv 3 -name Trunk -ch 1;
+setAttr "polyCylinder1.subdivisionsCaps" 3;
+move -relative 0 5.5 0;
+//extend and flatten base
+select -add Trunk.f[0:39] Trunk.f[100:119] ;
+scale -relative -pivot -1.19209e-07cm -0.47cm -1.78814e-07cm 1 1e-05 1 ;
+scale -r -p -1.19209e-07cm 0.00890083cm -1.78814e-07cm 1.423518 1.423518 1.423518 ;
+
+//values for random idk
+float $size = 3;
+//branches
+polyCube -width 0.3 -height $size -depth 0.3 -subdivisionsX 2 -subdivisionsY 2 -subdivisionsZ 2 -axis 0 1 0 -cuv 4 -ch 1; objectMoveCommand;
+move -r 5 3 0;
+rotate -r -os -fo 0 0 105 ;
